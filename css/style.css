@@ -43,10 +43,10 @@ body {
 }
 
 .container {
-    width: 90%;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px 0;
+    width: min(100% - 3rem, 1400px); /* GŁÓWNA ZMIANA TUTAJ */
+    margin-inline: auto; /* Nowoczesny odpowiednik margin-left/right: auto */
+    padding-top: 20px;
+    padding-bottom: 20px;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -62,7 +62,7 @@ h3 { font-size: clamp(1.5rem, 3vw, 2rem); }
 
 p {
     margin-bottom: 1.25em;
-    text-align: center;
+    font-size: clamp(0.95rem, 1.5vw + 0.5rem, 1.1rem); 
 }
 
 a {
@@ -72,13 +72,12 @@ a {
 }
 
 a:hover, a:focus {
-    color: var(--subtle-copper); /* Subtelna mied\u017a przy najechaniu */
+    color: var(--subtle-copper); 
     text-decoration: underline;
 }
 
 img {
     max-width: 100%;
-    height: auto;
     display: block;
     border-radius: 4px; /* Delikatne zaokr\u0105glenie rog�w obrazk�w */
 }
@@ -571,4 +570,30 @@ footer a {
 }
 footer a:hover, footer a:focus {
     color: var(--gold);
+}
+@media (max-width: 768px) {
+    header .container {
+        flex-direction: column; /* Zmienia układ na pionowy */
+        gap: 15px; /* Dodaje odstęp między logo a nawigacją */
+    }
+
+    header nav {
+        width: 100%;
+    }
+
+    header nav ul {
+        flex-direction: column; /* Układa linki jeden pod drugim */
+        align-items: center; /* Wyśrodkowuje je */
+        width: 100%;
+    }
+
+    header nav ul li {
+        margin: 8px 0; /* Zmienia marginesy na pionowe */
+        width: 100%;
+    }
+    
+    header nav ul li a {
+        display: block; /* Sprawia, że link zajmuje całą szerokość dla łatwiejszego klikania */
+        text-align: center;
+    }
 }
