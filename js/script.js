@@ -1,8 +1,18 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Aktualizacja roku w stopce
     const currentYearSpan = document.getElementById('currentYear');
     if (currentYearSpan) {
         currentYearSpan.textContent = new Date().getFullYear();
+    }
+    const hamburgerBtn = document.getElementById('hamburger-btn');
+    const header = document.querySelector('header');
+
+    if (hamburgerBtn && header) {
+        hamburgerBtn.addEventListener('click', function() {
+            header.classList.toggle('nav-open');
+
+            const isExpanded = header.classList.contains('nav-open');
+            hamburgerBtn.setAttribute('aria-expanded', isExpanded);
+        });
     }
 
     // Płynne przewijanie dla linków nawigacyjnych

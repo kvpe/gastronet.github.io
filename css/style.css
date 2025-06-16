@@ -569,35 +569,85 @@ footer a {
 }
 footer a:hover, footer a:focus {
     color: var(--gold);
+}.hamburger-btn {
+    display: none; /* Ukryj na dużych ekranach */
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    z-index: 1010; /* Upewnij się, że jest nad innymi elementami */
 }
+
+.hamburger-btn .bar {
+    display: block;
+    width: 25px;
+    height: 3px;
+    margin: 5px auto;
+    background-color: var(--gold);
+    transition: all 0.3s ease-in-out;
+}
+
+
+/* --- Media Queries (na końcu pliku) --- */
+/* ZASTĄP CAŁĄ ISTNIEJĄCĄ REGUŁĘ @media PONIŻSZĄ */
 @media (max-width: 768px) {
-
-    header { /* DODAJEMY TEN NOWY SELEKTOR */
-        background-color: var(--emerald-green); /* Nadajemy solidne tło */
+    /* 1. Pokaż przycisk hamburgera na mobile */
+    .hamburger-btn {
+        display: block; /* Pokaż na małych ekranach */
     }
 
+    /* 2. Zmodyfikuj kontener w nagłówku, aby przycisk był po prawej */
     header .container {
-        flex-direction: column; /* Zmienia układ na pionowy */
-        gap: 15px; /* Dodaje odstęp między logo a nawigacją */
+        flex-direction: row; /* Wracamy do układu poziomego */
+        justify-content: space-between; /* Logo po lewej, hamburger po prawej */
+        align-items: center;
     }
 
+    /* 3. Schowaj nawigację poza ekran i przygotuj do animacji */
     header nav {
-        width: 100%;
+        position: fixed; /* Pozycjonowanie względem okna przeglądarki */
+        top: 0;
+        right: -100%; /* Ukryj całkowicie po prawej stronie */
+        width: 80%; /* Szerokość wysuwanego menu */
+        max-width: 300px;
+        height: 100vh; /* Wysokość na cały ekran */
+        background-color: var(--deep-graphite); /* Solidne, ciemne tło dla menu */
+        padding: 80px 20px 20px 20px;
+        transition: right 0.4s ease-in-out; /* Animacja wsuwania */
+        z-index: 1001; /* Upewnij się, że menu jest pod przyciskiem, ale nad resztą strony */
     }
 
+    /* 4. Stan "otwarty" - dodawany przez JavaScript */
+    header.nav-open nav {
+        right: 0; /* Wsuń menu na ekran */
+        box-shadow: -5px 0 15px rgba(0,0,0,0.2);
+    }
+    
+    /* 5. Zmień układ linków w wysuniętym menu */
     header nav ul {
-        flex-direction: column; /* Układa linki jeden pod drugim */
-        align-items: center; /* Wyśrodkowuje je */
-        width: 100%;
+        flex-direction: column;
+        align-items: flex-start; /* Linki do lewej */
+        gap: 20px; /* Odstępy między linkami */
     }
 
     header nav ul li {
-        margin: 8px 0; /* Zmienia marginesy na pionowe */
+        margin: 0;
         width: 100%;
     }
-    
+
     header nav ul li a {
-        display: block; /* Sprawia, że link zajmuje całą szerokość dla łatwiejszego klikania */
-        text-align: center;
+        font-size: 1.2rem; /* Większa czcionka dla łatwiejszego klikania */
+        padding: 10px 0;
+    }
+
+    /* 6. Animacja hamburgera w znak "X" (krzyżyk) */
+    header.nav-open .hamburger-btn .bar:nth-child(1) {
+        transform: translateY(8px) rotate(45deg);
+    }
+    header.nav-open .hamburger-btn .bar:nth-child(2) {
+        opacity: 0;
+    }
+    header.nav-open .hamburger-btn .bar:nth-child(3) {
+        transform: translateY(-8px) rotate(-45deg);
     }
 }
